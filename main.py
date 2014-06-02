@@ -1,8 +1,8 @@
 import pygame
 from pygame.locals import *
-from credits_func import credits_print
-from options_func import options_print
-from game_func import game_main
+from credits_func import *
+from options_func import *
+from game_func import *
 
 
 ###### Main Function ######

@@ -31,7 +31,7 @@ def game_main(fenetre):
     hand_enemy = initial_hand(deck_enemy)
     print_hand(fenetre, hand_player)
     
-    #Stats de la partie mise à jour en temps reel
+    #Stats de la partie mise a jour en temps reel
     stats = {'hp_player' : '30', 'hp_enemy' : '30', 'mana_player' : '1', 'mana_enemy' : '1'}
     continuer = 1
 
@@ -58,11 +58,11 @@ def game_main(fenetre):
             fenetre.blit(button_next_h, (515,430))
             pygame.display.flip()
 
-#Methode appelée au debut du tour de l'IA
+#Methode appelee au debut du tour de l'IA
 def turn_enemy(stats, hand_enemy, deck_enemy):
     stats['mana_enemy'] = str(int(stats['mana_enemy']) + 1);
 
-#Methode appelée à la fin du tour de l'IA
+#Methode appelee a la fin du tour de l'IA
 def turn_player(stats, hand_player, deck_player):
     stats['mana_player'] = str(int(stats['mana_player']) + 1);
 
