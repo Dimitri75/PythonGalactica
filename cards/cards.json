@@ -1,5 +1,0 @@
-[
-{ "id":0 , "name":"Serviteur A", "Health":5, "Attack":5, "Cost":5 }, 
-{ "id":1 , "name":"Serviteur B", "Health":4, "Attack":4, "Cost":4 }, 
-{ "id":2 , "name":"Serviteur C", "Health":3, "Attack":3, "Cost":3 }
-]
