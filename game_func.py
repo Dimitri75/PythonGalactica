@@ -15,6 +15,8 @@ def game_main(fenetre):
     fenetre.blit(fond, (0,0))
     fenetre.blit(button_ff, (835,695))
     fenetre.blit(button_next, (835,660))
+
+    #Creer des rectangles pour le Mouse Over
     ff_r = button_ff.get_rect()
     ff_r.x, ff_r.y = 835,695
     next_r = button_next.get_rect()
@@ -23,8 +25,9 @@ def game_main(fenetre):
 
     #Chargement des decks de base
     deck_name = 'deck_base'
+    deck_name_ia = 'deck_base_ia'
     deck_player = load_deck(deck_name)
-    deck_enemy = load_deck(deck_name)
+    deck_enemy = load_deck(deck_name_ia)
 
     #Mains de depart
     hand_player = initial_hand(deck_player)
@@ -87,7 +90,7 @@ def game_routine(fenetre, stats, deck_player, deck_enemy, hand_player, hand_enem
 #Methode d'actualisation des statistiques de la partie
 def game_stats(fenetre, stats, deck_player, deck_enemy):   
     font = pygame.font.Font(None, 36)
-    
+
     hp_player = font.render(stats['hp_player'], 1, (255, 255, 255))
     hp_enemy = font.render(stats['hp_enemy'], 1, (255, 255, 255))
     mana_player = font.render(stats['mana_player'], 1, (0, 0, 255))
@@ -105,11 +108,8 @@ def game_stats(fenetre, stats, deck_player, deck_enemy):
 def print_hands(fenetre, hand_player, hand_enemy):
     font = pygame.font.Font(None, 20)
     font_name = pygame.font.Font(None, 15)
-    #for i in range(5):
-    #    temp = hand_player[i]['name']+' - A : '+str(hand_player[i]['Attack'])+' - H : '+str(hand_player[i]['Health'])+' - C : '+str(hand_player[i]['Cost'])
-    #    card = font.render(temp, 1, (255, 255, 255))
-    #    fenetre.blit(card, (0, 400+(i*10)))
     model_card_front = pygame.image.load("images/card_model_hand.png").convert()
+    list_image_maps = []
     model_card_back = pygame.image.load("images/back_card_model.jpg").convert()
     
     #Affichage de la main du joueur
