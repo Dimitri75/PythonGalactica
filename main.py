@@ -44,7 +44,7 @@ def main():
     credits_r.x, credits_r.y = 418, 320
     quit_r = button_quit.get_rect()
     quit_r.x, quit_r.y = 418, 369
-
+    list_image_maps = []
     while continuer:
         
         for event in pygame.event.get():
