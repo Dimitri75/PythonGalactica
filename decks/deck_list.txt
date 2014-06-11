@@ -1,0 +1,3 @@
+deck_number = 2
+deck_base 30
+myDeck 30
