@@ -3,7 +3,7 @@ from pygame.locals import *
 from credits_func import *
 from options_func import *
 from game_func import *
-
+from deckBuilder import *
 
 ###### Main Function ######
 #(1) Initialize Game Menu #
@@ -60,7 +60,7 @@ def main():
                     game_main(fenetre)
                 #Bouton DECK BUILDER
                 elif ( x in range(418,543)) and (y in range (222,251)):
-                    print("Bouton deck builder")
+                    deckBuilder_main(fenetre)
                 #Bouton CREDITS
                 elif ( x in range(418,543)) and (y in range (320,349)):
                     credits_print(fenetre)
