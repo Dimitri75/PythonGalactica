@@ -1,4 +1,5 @@
 import pygame
+import time
 from pygame.locals import *
 from card_loading import *
 from pprint import pprint
@@ -12,12 +13,10 @@ def game_main(fenetre):
     button_ff_h = pygame.image.load("images/ff_highlight.jpg").convert()
     button_next = pygame.image.load("images/next_no_highlight.jpg").convert()
     button_next_h = pygame.image.load("images/next_highlight.jpg").convert()
-    health_bar = pygame.image.load("images/healthbar.png").convert()
     fenetre.blit(fond, (0,0))
     fenetre.blit(button_ff, (835,695))
     fenetre.blit(button_next, (835,660))
-    fenetre.blit(health_bar, (500,650))
-
+    fontWL = pygame.font.Font(None, 75)
     #Creer des rectangles pour le Mouse Over
     ff_r = button_ff.get_rect()
     ff_r.x, ff_r.y = 835,695
@@ -35,20 +34,42 @@ def game_main(fenetre):
     hand_player = initial_hand(deck_player)
     hand_enemy = initial_hand(deck_enemy)
     list_image_maps = print_hands(fenetre, hand_player, hand_enemy)
+
+    #Board de la partie
+    board = {'enemy0' : 'empty', 'enemy1' : 'empty', 'enemy2' : 'empty', 'enemy3' : 'empty', 'enemy4' : 'empty', 'player0' : 'empty', 'player1' : 'empty', 'player2' : 'empty', 'player3' : 'empty', 'player4' : 'empty'}
+    display_board(fenetre, board)
     
     #Stats de la partie mise a jour en temps reel
     stats = {'hp_player' : '30', 'hp_enemy' : '30', 'mana_player' : '1', 'mana_enemy' : '1', 'player_pool' : '1', 'enemy_pool' : '1'}
     continuer = 1
 
+
+    #Drag&Drop
+    is_dragged = False
+    firstFrame = True
     #MouseOver Meilleur lecture de la carte
     big_card = pygame.image.load("images/card_model.png").convert_alpha()
     card_subri = pygame.image.load("images/card_subri.png").convert()
+    card_playable = pygame.image.load("images/card_subri_green.png").convert()
     isNotHover = True
     fontHover = pygame.font.Font(None, 38)
-    
+    id_selected_card = 0
     #Boucle principale de jeu
+    
     while continuer:
-        
+        if (int(stats['hp_player'])<=0):
+            name = fontWL.render("YOU WIN !", 1, (255, 255, 255))
+            fenetre.blit(name, (200,200))
+            continuer = 0
+            time.sleep(3)
+        elif (int(stats['hp_enemy'])<=0):
+            name = fontWL.render("VOUS LOSE !", 1, (255, 255, 255))
+            fenetre.blit(name, (200,200))
+            continuer = 0
+            time.sleep(3)
+        if is_dragged:
+            fenetre.blit(card, pygame.mouse.get_pos())
+            pygame.display.flip()
         for event in pygame.event.get():
             if event.type == pygame.quit:
                 continuer = 0
@@ -61,6 +82,34 @@ def game_main(fenetre):
                 if ( x in range(835,960)) and (y in range(660,685)):
                     turn_enemy(stats, hand_enemy, deck_enemy)
                     turn_player(stats, hand_player, deck_player)
+                #Drag de la carte
+                for i in range(len(hand_player)):
+                    if ( x in range(0+(i*68),0+(i*68)+68)) and (y in range(610,704)):
+                        is_dragged = True
+                        if firstFrame:
+                            firstFrame = False
+                            rect = pygame.Rect((0+(i*68)),610, 68, 94)
+                            card = fenetre.subsurface(rect)
+                            card = card.copy()
+                            tempCard = hand_player[i]
+                            del(hand_player[i])
+                            list_image_maps = game_routine(fenetre, board, stats, deck_player, deck_enemy, hand_player, hand_enemy)
+            #Drop de la carte
+            if event.type == pygame.MOUSEBUTTONUP:
+                if is_dragged:
+                    x, y = event.pos
+                    card_to_hand = True
+                    is_dragged = False
+                    firstFrame = True
+                    for i in range(0,5):
+                        if ( x in range(150+(i*150),150+(i*150)+70)) and (y in range(350,350+96)):
+                            if board['player'+str(i)] == 'empty':
+                                if is_card_playable(tempCard['Cost'], stats, board):
+                                    board['player'+str(i)] = tempCard
+                                    stats['player_pool'] = str(int(stats['player_pool']) - int(tempCard['Cost']))
+                                    card_to_hand = False
+                    if card_to_hand:
+                        hand_player.append(tempCard)
         #MOUSE OVER (met les boutons en rouge lorsque la souris est au dessus)
         if ff_r.collidepoint(pygame.mouse.get_pos()):
             fenetre.blit(button_ff_h, (835,695))
@@ -68,9 +117,10 @@ def game_main(fenetre):
         elif next_r.collidepoint(pygame.mouse.get_pos()):
             fenetre.blit(button_next_h, (835,660))
             pygame.display.flip()
-        increment_Hover = 0
+        #MOUSE OVER de la main du joueur
+        increment_Hover = 0     
         for i in list_image_maps:
-            if i.collidepoint(pygame.mouse.get_pos()):  
+            if i.collidepoint(pygame.mouse.get_pos()):
                 isNotHover = False
                 name = fontHover.render(str(hand_player[increment_Hover]['name']), 1, (255, 255, 255))
                 cost = fontHover.render(str(hand_player[increment_Hover]['Cost']), 1, (255, 255, 255))
@@ -79,7 +129,13 @@ def game_main(fenetre):
                 temp_image_card = pygame.image.load("decks/img/hover-"+str(hand_player[increment_Hover]['name'])+".png").convert()
                 fenetre.blit(temp_image_card, (470,210))
                 fenetre.blit(big_card, (400,200))
-                fenetre.blit(card_subri,(0+(increment_Hover*68),610))
+                if id_selected_card != increment_Hover:
+                    id_selected_card = increment_Hover
+                    game_routine(fenetre, board, stats, deck_player, deck_enemy, hand_player, hand_enemy)
+                    if is_card_playable(hand_player[increment_Hover]['Cost'],stats,board):
+                        fenetre.blit(card_playable, (0+(increment_Hover*68),610))
+                    else:
+                        fenetre.blit(card_subri,(0+(increment_Hover*68),610))
                 if len(str(hand_player[increment_Hover]['name']))>6:
                     fenetre.blit(name, (490,420))
                 else:
@@ -94,12 +150,76 @@ def game_main(fenetre):
                 increment_Hover += 1
                 isNotHover = True
         if isNotHover:
-             list_image_maps = game_routine(fenetre, stats, deck_player, deck_enemy, hand_player, hand_enemy)
+             list_image_maps = game_routine(fenetre, board, stats, deck_player, deck_enemy, hand_player, hand_enemy)
+
+
+#Méthode pour savoir si une carte est jouable
+def is_card_playable(card_cost, stats, board):
+    isTherePlace = False
+    for i in range(0,5):
+        if board['player'+str(i)] == 'empty':
+            isTherePlace = True
+
+    if isTherePlace:
+        if int(stats['player_pool']) >= card_cost:
+            return True
+    return False
+
+#Methode d'affichage du board
+def display_board(fenetre, board):
+    font = pygame.font.Font(None, 20)
+    font_name = pygame.font.Font(None, 15)
+    board_case_empty = pygame.image.load("images/card_drop_green.jpg").convert()
+    board_case_full = pygame.image.load("images/card_drop_red.jpg").convert()
+    for i in range(0,5):
+        if board['enemy'+str(i)] == 'empty':
+            fenetre.blit(board_case_empty, (150 +(i*150),145))
+        else:
+            fenetre.blit(board_case_full, (150 +(i*150),145))
+            model_card_front = pygame.image.load("images/card_model_hand.png").convert_alpha()
+            temp_image = pygame.image.load("decks/img/"+str(board['enemy'+str(i)]['name'])+".png").convert()
+            fenetre.blit(temp_image, (168+(i*150),150))
+            fenetre.blit(model_card_front, (150+(i*150),150))   
+            
+            name = font_name.render(str(board['enemy'+str(i)]['name']), 1, (255, 255, 255))
+            cost = font.render(str(board['enemy'+str(i)]['Cost']), 1, (255, 255, 255))
+            health = font.render(str(board['enemy'+str(i)]['Health']), 1, (255, 255, 255))
+            attack = font.render(str(board['enemy'+str(i)]['Attack']), 1, (255, 255, 255))
+            if len(str(board['enemy'+str(i)]['name']))>6:
+                fenetre.blit(name, (160+(i*150),197))
+            else:
+                fenetre.blit(name, (175+(i*150),197))
+            fenetre.blit(cost, (155+(i*150),154))
+            fenetre.blit(health, (207+(i*150),227))
+            fenetre.blit(attack, (155+(i*150),227))
+    for i in range(0,5):
+        if board['player'+str(i)] == 'empty':
+            fenetre.blit(board_case_empty, (150 +(i*150),345))
+        else:
+            fenetre.blit(board_case_full, (150 +(i*150),345))
+            model_card_front = pygame.image.load("images/card_model_hand.png").convert_alpha()
+            temp_image = pygame.image.load("decks/img/"+str(board['player'+str(i)]['name'])+".png").convert()
+            fenetre.blit(temp_image, (168+(i*150),350))
+            fenetre.blit(model_card_front, (150+(i*150),350))  
+            
+            name = font_name.render(str(board['player'+str(i)]['name']), 1, (255, 255, 255))
+            cost = font.render(str(board['player'+str(i)]['Cost']), 1, (255, 255, 255))
+            health = font.render(str(board['player'+str(i)]['Health']), 1, (255, 255, 255))
+            attack = font.render(str(board['player'+str(i)]['Attack']), 1, (255, 255, 255))
+            if len(str(board['player'+str(i)]['name']))>6:
+                fenetre.blit(name, (160+(i*150),397))
+            else:
+                fenetre.blit(name, (175+(i*150),397))
+            fenetre.blit(cost, (155+(i*150),354))
+            fenetre.blit(health, (207+(i*150),427))
+            fenetre.blit(attack, (155+(i*150),427))
+
 
 #Methode appelee au debut du tour de l'IA
 def turn_enemy(stats, hand_enemy, deck_enemy):
     if int(stats['mana_enemy']) < 10:
         stats['mana_enemy'] = str(int(stats['mana_enemy']) + 1)
+    stats['enemy_pool'] = stats['mana_enemy']
     draw_card(stats, hand_enemy, deck_enemy, "enemy")
     #APPEL DE L'IA se trouvera ici
 
@@ -107,11 +227,12 @@ def turn_enemy(stats, hand_enemy, deck_enemy):
 def turn_player(stats, hand_player, deck_player):
     if int(stats['mana_player']) < 10:
         stats['mana_player'] = str(int(stats['mana_player']) + 1)
+    stats['player_pool'] = stats['mana_player']
     draw_card(stats, hand_player, deck_player, "player")
 
 
 #Methode d'actualisation de la vue GENERALE de la partie
-def game_routine(fenetre, stats, deck_player, deck_enemy, hand_player, hand_enemy):
+def game_routine(fenetre, board, stats, deck_player, deck_enemy, hand_player, hand_enemy):
     fond = pygame.image.load("images/background_game.jpg").convert()
     button_ff = pygame.image.load("images/ff_no_highlight.jpg").convert()
     button_next = pygame.image.load("images/next_no_highlight.jpg").convert()
@@ -120,28 +241,32 @@ def game_routine(fenetre, stats, deck_player, deck_enemy, hand_player, hand_enem
     fenetre.blit(button_next, (835,660))
     game_stats(fenetre, stats, deck_player, deck_enemy)
     list_image_maps = print_hands(fenetre, hand_player, hand_enemy)
+    display_board(fenetre, board)
     pygame.display.flip()
+    
     return list_image_maps
 
 #Methode d'actualisation des statistiques de la partie
 def game_stats(fenetre, stats, deck_player, deck_enemy):   
     font = pygame.font.Font(None, 36)
-    health_bar = pygame.image.load("images/healthbar.png").convert()
+    x = int(stats['hp_player'])
+    health = x - x%6
+    health_bar = pygame.image.load("images/healthbar_"+str(health)+".png").convert()
     
     hp_player = font.render(stats['hp_player'], 1, (255, 255, 255))
     hp_enemy = font.render(stats['hp_enemy'], 1, (255, 255, 255))
-    mana_player = font.render("Mana : "+stats['mana_player'], 1, (0, 0, 255))
-    mana_enemy = font.render("Mana : "+stats['mana_enemy'], 1 , (0, 0, 255))
-    cards_left_player = font.render("Deck : "+str(len(deck_player)),1 , (0, 255, 0))
-    cards_left_enemy = font.render("Deck : "+str(len(deck_enemy)),1 , (0, 255, 0))
+    mana_player = font.render("Mana: "+stats['player_pool']+"/"+stats['mana_player'], 1, (0, 0, 255))
+    mana_enemy = font.render("Mana: "+stats['enemy_pool']+"/"+stats['mana_enemy'], 1 , (0, 0, 255))
+    cards_left_player = font.render("Deck: "+str(len(deck_player)),1 , (0, 255, 0))
+    cards_left_enemy = font.render("Deck: "+str(len(deck_enemy)),1 , (0, 255, 0))
 
     fenetre.blit(health_bar, (580,25))
     fenetre.blit(health_bar, (580,640))
     fenetre.blit(hp_player, (640,655)) 
     fenetre.blit(hp_enemy, (640,40))
-    fenetre.blit(mana_player, (710,680))
+    fenetre.blit(cards_left_player, (710,680))
     fenetre.blit(mana_enemy, (800,60))
-    fenetre.blit(cards_left_player, (710, 640))
+    fenetre.blit(mana_player, (710, 640))
     fenetre.blit(cards_left_enemy, (800, 20))
     
 
