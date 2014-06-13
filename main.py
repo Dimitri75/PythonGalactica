@@ -9,7 +9,7 @@ from deckBuilder import *
 #(1) Initialize Game Menu #
 def main(): 
     pygame.init()
-     
+
     fenetre = pygame.display.set_mode((960, 720))
     pygame.display.set_caption("Galactica")
     continuer = 1
