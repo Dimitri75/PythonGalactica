@@ -77,9 +77,8 @@ def deckModify(deck_name):
 
                     for i in range(0,len(data)):
                         if (x in range(int(W-(W/5)-104),int(W-(W/5)+104))) and (y in range (40+(i*23-10),40+(i*23+10))):
-                            print("\nS'il y a moins de 30 cartes dans le deck: ")
-                            print("La carte "+data[i]["name"]+" doit etre ajoutee au deck.")
-                        
+                            if(len(deck)<30):
+                                print("La carte "+data[i]["name"]+" doit etre ajoutee au deck.")
 
     pygame.quit()
 
