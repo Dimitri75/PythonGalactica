@@ -9,7 +9,7 @@ def deckModify(deck_name):
     H=720
     pygame.init()
 
-    #Ouverture de la fenêtre Pygame
+    #Ouverture de la fenetre Pygame
     fenetre = pygame.display.set_mode((W, H))
 
     #Chargement et collage du fond
@@ -25,7 +25,7 @@ def deckModify(deck_name):
     myfont = pygame.font.Font(None, 35)
 
     #AFFICHAGE TITRE
-    text = [myfont.render("Liste des cartes", True, [185,169,255], None)]
+    text = [myfont.render("Liste des cartes", True, [185,169,255])]
     my_image = text[0]
     rect = my_image.get_rect()
     rect.center = [(W-(W/5)), 13]
@@ -44,20 +44,20 @@ def deckModify(deck_name):
         fenetre.blit(fond_carte, ((W-(W/5)-105), (40+i*23)-11))
 
         #COST
-        text = [myfont.render(str(data[i]["Cost"]), True, [0,0,0], None)]
+        text = [myfont.render(str(data[i]["Cost"]), True, [0,0,0])]
         my_image = text[0]
         rect = my_image.get_rect()
         rect.center = [(W-(W/5)-95), (40+i*23)]
         fenetre.blit(my_image, rect)
 
         #NAME
-        text = [myfont.render(data[i]["name"], True, [255,255,255], None)]
+        text = [myfont.render(data[i]["name"], True, [255,255,255])]
         my_image = text[0]
         rect = my_image.get_rect()
         rect.center = [(W-(W/5)), (40+i*23)]
         fenetre.blit(my_image, rect)
     
-    #Rafraîchissement de l'écran
+    #Rafraichissement de l'ecran
     pygame.display.flip()
 
     #BOUCLE INFINIE
@@ -65,20 +65,20 @@ def deckModify(deck_name):
 
     while continuer:
         #reload(fenetre,x)
-        for event in pygame.event.get():   #On parcours la liste de tous les événements reçus
-            if event.type == QUIT:     #Si un de ces événements est de type QUIT
-                continuer = 0      #On arrête la boucle
+        for event in pygame.event.get():   #On parcours la liste de tous les evenements recus
+            if event.type == QUIT:     #Si un de ces evenements est de type QUIT
+                continuer = 0      #On arrete la boucle
             elif event.type == pygame.MOUSEBUTTONUP:
                 if event.button == 1:
                     x,y = event.pos
                     for i in range(0,len(deck)):
                         if (x in range(int((W/5)-104),int((W/5)+104))) and (y in range (40+(i*23-10),40+(i*23+10))):
-                            print("\nLa carte "+deck[i]["name"]+" doit être retirée du deck.")
+                            print("\nLa carte "+deck[i]["name"]+" doit etre retiree du deck.")
 
                     for i in range(0,len(data)):
                         if (x in range(int(W-(W/5)-104),int(W-(W/5)+104))) and (y in range (40+(i*23-10),40+(i*23+10))):
                             print("\nS'il y a moins de 30 cartes dans le deck: ")
-                            print("La carte "+data[i]["name"]+" doit être ajoutée au deck.")
+                            print("La carte "+data[i]["name"]+" doit etre ajoutee au deck.")
                         
 
     pygame.quit()
@@ -94,7 +94,7 @@ def print_deck(fenetre, deck_name):
     myfont = pygame.font.SysFont(None, 35)
 
     #Affichage nom du deck
-    text = [myfont.render(deck_name, True, [185,169,255], None)]
+    text = [myfont.render(deck_name, True, [185,169,255])]
     my_image = text[0]
     rect = my_image.get_rect()
     rect.center = [W/5, 13]
@@ -111,14 +111,14 @@ def print_deck(fenetre, deck_name):
         fenetre.blit(fond_carte, (W/5-105, (40+i*23)-11))
 
         #COST
-        text = [myfont.render(str(deck[i]["Cost"]), True, [0,0,0], None)]
+        text = [myfont.render(str(deck[i]["Cost"]), True, [0,0,0])]
         my_image = text[0]
         rect = my_image.get_rect()
         rect.center = [((W/5)-95), (40+i*23)]
         fenetre.blit(my_image, rect)
         
         #NAME
-        text = [myfont.render(deck[i]["name"], True, [255,255,255], None)]
+        text = [myfont.render(deck[i]["name"], True, [255,255,255])]
         my_image = text[0]
         rect = my_image.get_rect()
         rect.center = [W/5, (40+i*23)]
