@@ -42,17 +42,24 @@ def deckBuilder_main(fenetre):
         for event in pygame.event.get():
             if event.type == pygame.quit:
                 continuer = 0
-            if event.type == pygame.MOUSEBUTTONDOWN:
+            if event.type == pygame.MOUSEBUTTONUP:
                 x, y = event.pos
                 #Bouton BACK
-                if ( x in range(700, 825)) and (y in range(600,625)):
+                if ( x in range(700, 825)) and (y in range(600,629)):
                     continuer = 0
-                if ( x in range(700, 675)) and (y in range(450,625)):
-                    continuer = 0
-                if ( x in range(700, 725)) and (y in range(500,625)):
-                    continuer = 0
-                if ( x in range(700, 775)) and (y in range(550,625)):
-                    continuer = 0
+
+                #BOUTON CREATE
+                if (x in range (700, 825)) and (y in range(450, 479)):
+                    print('CREATE')
+
+                #BOUTON MODIFY
+                if (x in range (700, 825)) and (y in range(500, 529)):
+                    print('MODIFY')
+
+                #BOUTON DELETE
+                if (x in range (700, 825)) and (y in range(550, 579)):
+                    print('DELETE')    
+
         #Initialisation de la liste des Decks
         listDeck = {}
         cpt = 0
@@ -69,7 +76,7 @@ def deckBuilder_main(fenetre):
             # Si l'on passe la souris sur le label alors ...
             #if listDeck.get_rect().collipoint(pygame.mouse.get_pos()):
                 
-            print(listDeck)
+            #print(listDeck)
             pygame.display.flip()
             #print(os.path.splitext(file)[0])
         #Recuperation des donnees Json des fichier
