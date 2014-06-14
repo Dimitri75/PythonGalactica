@@ -85,7 +85,7 @@ def game_main(fenetre):
                 if ( x in range(835,960)) and (y in range(660,685)):
                     turn_enemy(stats, board, hand_enemy, deck_enemy)
                     turn_player(stats, board, hand_player, deck_player)
-                #Drag de la carte à partir de la main
+                #Drag de la carte a partir de la main
                 for i in range(len(hand_player)):
                     if ( x in range(0+(i*68),0+(i*68)+68)) and (y in range(610,704)):
                         is_dragged = True
@@ -98,7 +98,7 @@ def game_main(fenetre):
                             del(hand_player[i])
                             list_image_maps = game_routine(fenetre, board, stats, deck_player, deck_enemy, hand_player, hand_enemy)
 
-                #Drag de la carte à partir du board
+                #Drag de la carte a partir du board
                 for i in range(0,5):
                     if board['player'+str(i)] != 'empty':
                         if board['player'+str(i)]['can_attack'] == 1:
@@ -271,10 +271,10 @@ def turn_enemy(stats, board, hand_enemy, deck_enemy):
 
 #Methode appelee a la fin du tour de l'IA
 def turn_player(stats, board, hand_player, deck_player):
-    #Augmente la mana pool jusqu'à 10 (maximum de mana)
+    #Augmente la mana pool jusqu'a 10 (maximum de mana)
     if int(stats['mana_player']) < 10:
         stats['mana_player'] = str(int(stats['mana_player']) + 1)
-    #En debut de tour tous les serviteurs peuvent à nouver attacker
+    #En debut de tour tous les serviteurs peuvent a nouver attacker
     for i in range(0,5):
         if board['player'+str(i)] != 'empty':
             board['player'+str(i)]['can_attack'] = 1

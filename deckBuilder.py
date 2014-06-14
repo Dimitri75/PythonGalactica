@@ -26,8 +26,8 @@ def deckBuilder_main(fenetre):
     pygame.display.flip()
     listDeck = {}
     cpt = 0
-    yellow = (255, 255, 0)
-    myfont = pygame.font.SysFont("Comic Sans MS", 30)
+    yellow = (255, 0, 0)
+    myfont = pygame.font.SysFont("Arial", 30)
     listfile = os.listdir("decks/decklist/")
     for file in listfile:
         listDeck = {"id": cpt,"name": os.path.splitext(file)[0] }

@@ -2,7 +2,7 @@ import pygame
 
 from pygame.locals import *
 
-#Méthode pour savoir si une carte est jouable
+#Methode pour savoir si une carte est jouable
 def is_card_playable(card_cost, stats, board):
     isTherePlace = False
     for i in range(0,5):
@@ -16,7 +16,7 @@ def is_card_playable(card_cost, stats, board):
 
 #Intelligence Artificielle ... ou pas !
 def play_turn_ia(stats, board, hand_enemy):
-    #FIFO - Premiere carte jouable Premiere carte jouée
+    #FIFO - Premiere carte jouable Premiere carte jouee
     for i in range(len(hand_enemy)):
         if is_card_playable_ia(hand_enemy[i]['Cost'], stats, board):
              x = get_empty_slot(board,'enemy')
@@ -38,7 +38,7 @@ def get_empty_slot(board, target):
                 return i
     return place
             
-#Méthode pour savoir si une carte est jouable
+#Methode pour savoir si une carte est jouable
 def is_card_playable_ia(card_cost, stats, board):
     isTherePlace = False
     for i in range(0,5):
@@ -50,7 +50,7 @@ def is_card_playable_ia(card_cost, stats, board):
             return True
     return False
 
-#Methode qui gère l'attack entre deux cartes
+#Methode qui gere l'attack entre deux cartes
 def attack_combat(board, index_p, index_e):
     initial_hp_p = board['player'+str(index_p)]['Health']
     initial_hp_e = board['enemy'+str(index_e)]['Health']
