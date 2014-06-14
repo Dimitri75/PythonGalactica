@@ -67,7 +67,7 @@ def deckBuilder_main(fenetre):
             label = myfont.render(listDeck["name"], 1, red)
             fenetre.blit(label, (40,30+(cpt*45)+10))
             # Si l'on passe la souris sur le label alors ...
-            if listDeck.get_rect().collipoint(pygame.mouse.get_pos()):
+            #if listDeck.get_rect().collipoint(pygame.mouse.get_pos()):
                 
             print(listDeck)
             pygame.display.flip()

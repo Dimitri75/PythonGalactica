@@ -35,11 +35,11 @@ def main():
     myfont = pygame.font.SysFont("Consolas", 20)
 
     #Chargement liste des cartes
-    json_data = open('card_list.json')
+    json_data = open('decks/card_list.json')
     data = json.load(json_data)
     json_data.close()
 
-    for i in range(0,5):
+    for i in range(0,len(data)):
         fond_carte = pygame.image.load("images/bg_cardList.png").convert_alpha()
         fenetre.blit(fond_carte, ((W-(W/5)-105), (40+i*23)-11))
 
@@ -71,11 +71,11 @@ def main():
             elif event.type == pygame.MOUSEBUTTONUP:
                 if event.button == 1:
                     x,y = event.pos
-                    for i in range(0,30):
+                    for i in range(0,len(deck)):
                         if (x in range(int((W/5)-104),int((W/5)+104))) and (y in range (40+(i*23-10),40+(i*23+10))):
                             print("\nLa carte "+deck[i]["name"]+" doit être retirée du deck.")
 
-                    for i in range(0,5):
+                    for i in range(0,len(data)):
                         if (x in range(int(W-(W/5)-104),int(W-(W/5)+104))) and (y in range (40+(i*23-10),40+(i*23+10))):
                             print("\nS'il y a moins de 30 cartes dans le deck: ")
                             print("La carte "+data[i]["name"]+" doit être ajoutée au deck.")
@@ -106,7 +106,7 @@ def print_deck(fenetre, deck_name):
     deck = load_deck(deck_name)
 
     
-    for i in range(0,30):
+    for i in range(0,len(deck)):
         fond_carte = pygame.image.load("images/bg_cardList.png").convert_alpha()
         fenetre.blit(fond_carte, (W/5-105, (40+i*23)-11))
 
