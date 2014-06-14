@@ -23,26 +23,29 @@ def deckBuilder_main(fenetre):
     fenetre.blit(button_modify, (700,500))
     fenetre.blit(button_delete, (700,550))
     fenetre.blit(button_back, (700,600))
-    pygame.display.flip()
+
+    #Initialisation de la liste des Decks
     listDeck = {}
     cpt = 0
-    yellow = (255, 0, 0)
-    myfont = pygame.font.SysFont("Arial", 30)
+    # Style des noms de decks
+    red = (255, 255, 255)
+    myfont = pygame.font.SysFont("Arial", bold=true,30)
+    # Liste des fichiers dans le dossier decklist
     listfile = os.listdir("decks/decklist/")
     for file in listfile:
         listDeck = {"id": cpt,"name": os.path.splitext(file)[0] }
         cpt += 1
-        label = myfont.render(listDeck["name"], 1, yellow)
+        label = myfont.render(listDeck["name"], 1, red)
         fenetre.blit(label, (400,300+(cpt*45)+10))
-        pygame.display.flip()
         print(listDeck)
         #print(os.path.splitext(file)[0])
+    #Recuperation des donnees Json des fichier
     with open("decks/decklist/deck_base.json") as json_file:
         json_data = json.load(json_file)
         #Affiche le tableau de valeurs
         #print(json_data)
-    
     continuer = 1
+    pygame.display.flip()
     while continuer:
         continuer +=1
         if continuer > 500:
