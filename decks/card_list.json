@@ -3,5 +3,13 @@
 { "name":"Big", "Health":4, "Attack":4, "Cost":4 }, 
 { "name":"Half-Big", "Health":3, "Attack":3, "Cost":3 },
 { "name":"Half-Small", "Health":2, "Attack":2, "Cost":2 },
-{ "name":"Small", "Health":1, "Attack":1, "Cost":1 }
+{ "name":"Dark Vessel Big", "Health":1, "Attack":1, "Cost":1 },
+{ "name":"Dark Vessel Medium", "Health":2, "Attack":2, "Cost":2 },
+{ "name":"Dark Vessel Small", "Health":1, "Attack":1, "Cost":1 },
+{ "name":"Blue Vessel Big", "Health":2, "Attack":2, "Cost":2 },
+{ "name":"Blue Vessel Medium", "Health":1, "Attack":1, "Cost":1 },
+{ "name":"Blue Vessel Small", "Health":1, "Attack":1, "Cost":1 },
+{ "name":"Red Vessel Big", "Health":1, "Attack":1, "Cost":1 },
+{ "name":"Red Vessel Medium", "Health":1, "Attack":1, "Cost":1 },
+{ "name":"Red Vessel Small", "Health":1, "Attack":1, "Cost":1 }
 ]
