@@ -3,6 +3,7 @@ import json
 import os, sys
 from pygame.locals import *
 from card_loading import *
+from deckConstructor import *
 
 def deckBuilder_main(fenetre):
     pygame.display.set_caption("Galactica - Deck Builder")
@@ -54,7 +55,7 @@ def deckBuilder_main(fenetre):
 
                 #BOUTON MODIFY
                 if (x in range (700, 825)) and (y in range(500, 529)):
-                    print('MODIFY')
+                    deckModify("ivan_deck")
 
                 #BOUTON DELETE
                 if (x in range (700, 825)) and (y in range(550, 579)):

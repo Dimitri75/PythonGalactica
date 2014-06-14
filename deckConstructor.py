@@ -4,7 +4,7 @@ from pygame.locals import *
 import json
 #import nomDuFichier import *
 
-def main():
+def deckModify(deck_name):
     W=960
     H=720
     pygame.init()
@@ -17,7 +17,7 @@ def main():
     fenetre.blit(fond, (0,0))
 
     #AFFICHAGE DECK
-    deck = print_deck(fenetre, "dim_deck")
+    deck = print_deck(fenetre, deck_name)
 
     #DEBUT AFFICHAGE CARDLIST
     
@@ -125,6 +125,3 @@ def print_deck(fenetre, deck_name):
         fenetre.blit(my_image, rect)
 
     return deck
-
-if __name__ == "__main__":
-    main()
