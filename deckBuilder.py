@@ -55,7 +55,7 @@ def deckBuilder_main(fenetre):
 
                 #BOUTON MODIFY
                 if (x in range (700, 825)) and (y in range(500, 529)):
-                    deckModify("ivan_deck")
+                    deckModify("dim_deck")
 
                 #BOUTON DELETE
                 if (x in range (700, 825)) and (y in range(550, 579)):

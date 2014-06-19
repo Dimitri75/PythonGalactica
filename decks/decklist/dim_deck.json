@@ -25,8 +25,7 @@
 { "name":"Half-Big", "Health":3, "Attack":3, "Cost":3 },
 { "name":"Bigger", "Health":5, "Attack":5, "Cost":5 }, 
 { "name":"Big", "Health":4, "Attack":4, "Cost":4 },
-{ "name":"Bigger", "Health":5, "Attack":5, "Cost":5 }, 
-{ "name":"Big", "Health":4, "Attack":4, "Cost":4 },
+{ "name":"Bigger", "Health":5, "Attack":5, "Cost":5 },
 { "name":"Bigger", "Health":5, "Attack":5, "Cost":5 }, 
 { "name":"Big", "Health":4, "Attack":4, "Cost":4 }
 ]

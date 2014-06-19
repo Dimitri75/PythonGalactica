@@ -79,7 +79,20 @@ def deckModify(deck_name):
                         if (x in range(int(W-(W/5)-104),int(W-(W/5)+104))) and (y in range (40+(i*23-10),40+(i*23+10))):
                             if(len(deck)<30):
                                 print("La carte "+data[i]["name"]+" doit etre ajoutee au deck.")
-
+                                with open ("decks/decklist/"+deck_name+".json", "r+") as f:
+                                    contenu = "\n"
+                                    for line in f:
+                                        if("]" not in line):
+                                            if("}," in line):
+                                                contenu += line
+                                            else:
+                                                contenu += line+","
+                                    contenu += str(data[i])+"\n]"
+                                    print(contenu)
+                                    #f.write(contenu)
+                                    f.close()
+                                    
+                                 
     pygame.quit()
 
 def reload(fenetre, x):
