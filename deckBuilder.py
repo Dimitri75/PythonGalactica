@@ -55,7 +55,7 @@ def deckBuilder_main(fenetre):
 
                 #BOUTON MODIFY
                 if (x in range (700, 825)) and (y in range(500, 529)):
-                    deckModify("dim_deck")
+                    deckModify(fenetre, "dim_deck")
 
                 #BOUTON DELETE
                 if (x in range (700, 825)) and (y in range(550, 579)):
@@ -98,4 +98,10 @@ def deckBuilder_routine(fenetre):
     button_back = pygame.image.load("images/back_no_highlight.jpg").convert()
     button_back_h = pygame.image.load("images/back_highlight.jpg").convert()
     title = pygame.image.load("images/title.png").convert()
+    fenetre.blit(fond_deckBuilder, (0,0))
+    fenetre.blit(title, (325,0))
+    fenetre.blit(button_create, (700,450))
+    fenetre.blit(button_modify, (700,500))
+    fenetre.blit(button_delete, (700,550))
+    fenetre.blit(button_back, (700,600))
     pygame.display.flip()
