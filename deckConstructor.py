@@ -64,7 +64,6 @@ def deckModify(deck_name):
     continuer = 1
 
     while continuer:
-        #reload(fenetre,x)
         for event in pygame.event.get():   #On parcours la liste de tous les evenements recus
             if event.type == QUIT:     #Si un de ces evenements est de type QUIT
                 continuer = 0      #On arrete la boucle
@@ -73,30 +72,27 @@ def deckModify(deck_name):
                     x,y = event.pos
                     for i in range(0,len(deck)):
                         if (x in range(int((W/5)-104),int((W/5)+104))) and (y in range (40+(i*23-10),40+(i*23+10))):
-                            print("\nLa carte "+deck[i]["name"]+" doit etre retiree du deck.")
+                            deck.remove(deck[i])
+                            with open ("decks/decklist/"+deck_name+".json", "w") as f:
+                                json.dump(deck, f)
+                                f.close()
+                            print("\nLa carte "+deck[i]["name"]+" vient d'etre retiree du deck.")
+                            reload(deck_name)
 
                     for i in range(0,len(data)):
                         if (x in range(int(W-(W/5)-104),int(W-(W/5)+104))) and (y in range (40+(i*23-10),40+(i*23+10))):
                             if(len(deck)<30):
-                                print("La carte "+data[i]["name"]+" doit etre ajoutee au deck.")
-                                with open ("decks/decklist/"+deck_name+".json", "r+") as f:
-                                    contenu = "\n"
-                                    for line in f:
-                                        if("]" not in line):
-                                            if("}," in line):
-                                                contenu += line
-                                            else:
-                                                contenu += line+","
-                                    contenu += str(data[i])+"\n]"
-                                    print(contenu)
-                                    #f.write(contenu)
+                                deck.append(data[i])
+                                with open ("decks/decklist/"+deck_name+".json", "w") as f:
+                                    json.dump(deck, f)
                                     f.close()
-                                    
-                                 
+                                print("\nLa carte "+data[i]["name"]+" vient d'etre ajoutee au deck.")
+                                reload(deck_name)
+                                                                
     pygame.quit()
 
-def reload(fenetre, x):
-    pygame.display.flip()
+def reload(deck_name):
+    deckModify(deck_name)
 
 def print_deck(fenetre, deck_name):
     W=fenetre.get_width()
