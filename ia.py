@@ -1,4 +1,5 @@
 import pygame
+import copy
 
 from pygame.locals import *
 
@@ -14,17 +15,34 @@ def is_card_playable(card_cost, stats, board):
             return True
     return False
 
-#Intelligence Artificielle ... ou pas !
+#Intelligence Artificielle - IA
 def play_turn_ia(stats, board, hand_enemy):
+    #Attaque toujours - board en priorite 
+    for i in range(0,5):
+        if board['enemy'+str(i)] != 'empty':
+            if board['enemy'+str(i)]['can_attack'] == 1:
+                for y in range(0,5):
+                    if board['player'+str(y)] != 'empty':
+                        board['enemy'+str(i)]['can_attack'] = 0
+                        attack_combat(board, y, i)
+                        break
+    #Attaque heros si une creature peut encore attaquer apres verifification du board
+    for i in range(0,5):
+        if board['enemy'+str(i)] != 'empty':
+            if board['enemy'+str(i)]['can_attack'] == 1:
+                board['enemy'+str(i)]['can_attack'] = 0
+                attack_player_hero(stats, board, i)
     #FIFO - Premiere carte jouable Premiere carte jouee
-    for i in range(len(hand_enemy)):
+    for i in range(len(hand_enemy) - 1):
+        print(hand_enemy[i])
         if is_card_playable_ia(hand_enemy[i]['Cost'], stats, board):
              x = get_empty_slot(board,'enemy')
-             board['enemy'+str(x)] = hand_enemy[i]
+             board['enemy'+str(x)] = copy.deepcopy(hand_enemy[i])
              board['enemy'+str(x)]['can_attack'] = 0
+             stats['enemy_pool'] = str(int(stats['enemy_pool']) - int(board['enemy'+str(x)]['Cost']))
              del(hand_enemy[i])
              return
-        
+    
 
 def get_empty_slot(board, target):
     place = -1
@@ -76,4 +94,8 @@ def attack_enemy_hero(stats, board, index_p):
     hp_enemy -= board['player'+str(index_p)]['Attack']
     stats['hp_enemy'] = str(hp_enemy)
 
+def attack_player_hero(stats, board, index_e):
+    hp_player = int(stats['hp_player'])
+    hp_player -= board['enemy'+str(index_e)]['Attack']
+    stats['hp_player'] = str(hp_player)
         

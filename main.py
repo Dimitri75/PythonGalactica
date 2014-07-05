@@ -2,7 +2,7 @@ import pygame
 from pygame.locals import *
 from credits_func import *
 from options_func import *
-from game_func import *
+from mode_func import *
 from deckBuilder import *
 
 ###### Main Function ######
@@ -57,7 +57,7 @@ def main():
                     continuer = 0
                 #Bouton PLAY
                 elif ( x in range(418,543)) and (y in range (173,202)):
-                    game_main(fenetre)
+                    mode_choice(fenetre)
                 #Bouton DECK BUILDER
                 elif ( x in range(418,543)) and (y in range (222,251)):
                     deckBuilder_main(fenetre)

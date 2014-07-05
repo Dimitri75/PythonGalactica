@@ -1,11 +1,12 @@
 import pygame
 import time
+import copy
 from pygame.locals import *
 from card_loading import *
 from ia import *
 
 #Fonction principale de jeu
-def game_main(fenetre):
+def game_main(fenetre, mode):
     #Mise en place de la vue de la partie
     pygame.display.set_caption("Galactica - Partie en cours")
     fond = pygame.image.load("images/background_game.jpg").convert()
@@ -57,18 +58,20 @@ def game_main(fenetre):
     isNotHover = True
     fontHover = pygame.font.Font(None, 38)
     id_selected_card = 0
-    #Boucle principale de jeu
-    
+    #Boucle principale de jeu & 1er tour
+    draw_card(stats, hand_player, deck_player, "player")
     while continuer:
         if (int(stats['hp_player'])<=0):
+            name = fontWL.render("YOU LOSE !", 1, (255, 255, 255))
+            fenetre.blit(name, (200,200))
+            continuer = 0
+            pygame.display.flip()
+            time.sleep(3)
+        elif (int(stats['hp_enemy'])<=0):
             name = fontWL.render("YOU WIN !", 1, (255, 255, 255))
             fenetre.blit(name, (200,200))
             continuer = 0
-            time.sleep(3)
-        elif (int(stats['hp_enemy'])<=0):
-            name = fontWL.render("VOUS LOSE !", 1, (255, 255, 255))
-            fenetre.blit(name, (200,200))
-            continuer = 0
+            pygame.display.flip()
             time.sleep(3)
         if is_dragged:
             fenetre.blit(card, pygame.mouse.get_pos())
@@ -83,8 +86,15 @@ def game_main(fenetre):
                     continuer = 0
                 #Bouton NEXT TURN
                 if ( x in range(835,960)) and (y in range(660,685)):
-                    turn_enemy(stats, board, hand_enemy, deck_enemy)
-                    turn_player(stats, board, hand_player, deck_player)
+                    if mode == 0:
+                        swap(fenetre, stats, board)
+                        hand_player, hand_enemy = hand_enemy, hand_player
+                        deck_player, deck_enemy = deck_enemy, deck_player
+                        turn_player(stats, board, hand_player, deck_player)
+                    elif mode == 1:
+                        turn_player(stats, board, hand_player, deck_player)
+                        turn_enemy(stats, board, hand_enemy, deck_enemy)
+                    
                 #Drag de la carte a partir de la main
                 for i in range(len(hand_player)):
                     if ( x in range(0+(i*68),0+(i*68)+68)) and (y in range(610,704)):
@@ -126,10 +136,11 @@ def game_main(fenetre):
                             if board['enemy'+str(i)] != 'empty':
                                 if (x in range(150+(i*150),150+(i*150)+68)) and (y in range(150,150+94)):
                                     card_to_hand = False
-                                    board['player'+str(card_from_board)] = tempCard
+                                    board['player'+str(card_from_board)] = copy.deepcopy(tempCard)
                                     board['player'+str(card_from_board)]['can_attack'] = 0
                                     attack_combat(board, card_from_board, i)
                                     card_from_board = -1
+                                    break
                     if card_from_board != -1:
                         card_to_hand = False
                         board['player'+str(card_from_board)] = tempCard
@@ -143,7 +154,7 @@ def game_main(fenetre):
                                 if board['player'+str(i)] == 'empty':
                                     if is_card_playable(tempCard['Cost'], stats, board):
                                         tempCard['can_attack'] = 0
-                                        board['player'+str(i)] = tempCard
+                                        board['player'+str(i)] = copy.deepcopy(tempCard)
                                         stats['player_pool'] = str(int(stats['player_pool']) - int(tempCard['Cost']))
                                         card_to_hand = False
                     if card_to_hand:
@@ -255,8 +266,28 @@ def display_board(fenetre, board):
             fenetre.blit(cost, (155+(i*150),354))
             fenetre.blit(health, (207+(i*150),427))
             fenetre.blit(attack, (155+(i*150),427))
+            
+def swap(fenetre, stats, board):
+    temp_board = copy.deepcopy(board)
+    temp_stats = copy.deepcopy(stats)
+    
+    for i in range(0,5):
+        board['player'+str(i)] = copy.deepcopy(board['enemy'+str(i)])
+    stats['hp_player'] = stats['hp_enemy']
+    stats['mana_player'] = stats['mana_enemy']
+    for i in range(0,5):
+        board['enemy'+str(i)] = copy.deepcopy(temp_board['player'+str(i)])
+    stats['hp_enemy'] = temp_stats['hp_player']
+    stats['mana_enemy'] = temp_stats['mana_player']
 
 
+    temp_fond = pygame.image.load("images/swap_background.jpg").convert()
+    title = pygame.image.load("images/title.png").convert()
+    fenetre.blit(temp_fond, (0,0))
+    fenetre.blit(title, (325,0))
+    pygame.display.flip()
+    time.sleep(3)
+    
 #Methode appelee au debut du tour de l'IA
 def turn_enemy(stats, board, hand_enemy, deck_enemy):
     if int(stats['mana_enemy']) < 10:
@@ -267,8 +298,8 @@ def turn_enemy(stats, board, hand_enemy, deck_enemy):
     stats['enemy_pool'] = stats['mana_enemy']
     draw_card(stats, hand_enemy, deck_enemy, "enemy")
     play_turn_ia(stats, board, hand_enemy)
-    #APPEL DE L'IA se trouvera ici
 
+    
 #Methode appelee a la fin du tour de l'IA
 def turn_player(stats, board, hand_player, deck_player):
     #Augmente la mana pool jusqu'a 10 (maximum de mana)
