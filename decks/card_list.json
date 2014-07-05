@@ -1,15 +1,8 @@
 [
-{ "name":"Bigger", "Health":5, "Attack":5, "Cost":5 }, 
-{ "name":"Big", "Health":4, "Attack":4, "Cost":4 }, 
-{ "name":"Half-Big", "Health":3, "Attack":3, "Cost":3 },
-{ "name":"Half-Small", "Health":2, "Attack":2, "Cost":2 },
-{ "name":"Dark Vessel B", "Health":1, "Attack":1, "Cost":1 },
-{ "name":"Dark Vessel M", "Health":2, "Attack":2, "Cost":2 },
-{ "name":"Dark Vessel S", "Health":1, "Attack":1, "Cost":1 },
-{ "name":"Blue Vessel B", "Health":2, "Attack":2, "Cost":2 },
-{ "name":"Blue Vessel M", "Health":1, "Attack":1, "Cost":1 },
-{ "name":"Blue Vessel S", "Health":1, "Attack":1, "Cost":1 },
-{ "name":"Red Vessel B", "Health":1, "Attack":1, "Cost":1 },
-{ "name":"Red Vessel M", "Health":1, "Attack":1, "Cost":1 },
-{ "name":"Red Vessel S", "Health":1, "Attack":1, "Cost":1 }
+{ "name":"Buran", "Health":6, "Attack":5, "Cost":6, "Capacity":0 }, 
+{ "name":"Voyager", "Health":5, "Attack":4, "Cost":4, "Capacity":0 }, 
+{ "name":"Settera", "Health":4, "Attack":2, "Cost":3, "Capacity":1 },
+{ "name":"Akira", "Health":1, "Attack":1, "Cost":1, "Capacity":0 }, 
+{ "name":"Ajax", "Health":3, "Attack":3, "Cost":3 , "Capacity":0},
+{ "name":"Enterprise", "Health":2, "Attack":3, "Cost":2, "Capacity":0 }
 ]

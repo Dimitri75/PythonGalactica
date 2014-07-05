@@ -38,8 +38,10 @@ def deckBuilder_main(fenetre):
     
     pygame.display.flip()
     continuer = 1
+    selectedDeck = 1
+    listfile = os.listdir("decks/decklist/")
     while continuer:
-        deckBuilder_routine(fenetre)
+        
         for event in pygame.event.get():
             if event.type == pygame.quit:
                 continuer = 0
@@ -55,38 +57,36 @@ def deckBuilder_main(fenetre):
 
                 #BOUTON MODIFY
                 if (x in range (700, 825)) and (y in range(500, 529)):
-                    deckModify(fenetre, "dim_deck")
+                    deckModify(fenetre, os.path.splitext(listfile[selectedDeck-1])[0])
 
                 #BOUTON DELETE
                 if (x in range (700, 825)) and (y in range(550, 579)):
-                    print('DELETE')    
-
-        #Initialisation de la liste des Decks
-        listDeck = {}
-        cpt = 0
-        # Style des noms de decks
-        red = (255, 255, 255)
-        myfont = pygame.font.SysFont("Arial",30)
-        # Liste des fichiers dans le dossier decklist
-        listfile = os.listdir("decks/decklist/")
-        for file in listfile:
-            listDeck = {"id": cpt,"name": os.path.splitext(file)[0] }
-            cpt += 1
-            label = myfont.render(listDeck["name"], 1, red)
-            fenetre.blit(label, (40,30+(cpt*45)+10))
-            # Si l'on passe la souris sur le label alors ...
-            #if listDeck.get_rect().collipoint(pygame.mouse.get_pos()):
+                    print('DELETE')
+                #Si on clique sur un deck
+                i = 0
+                for file in listfile:
+                    i += 1
+                    if (x in range (40,150)) and (y in range(30+(i*45)+10,30+(i*45)+70)):
+                        selectedDeck = i
+        if back_r.collidepoint(pygame.mouse.get_pos()):
+            fenetre.blit(button_back_h, (700,600))
+            pygame.display.flip()
+        elif create_r.collidepoint(pygame.mouse.get_pos()):
+            fenetre.blit(button_create_h, (700,450))
+            pygame.display.flip()
+        elif modify_r.collidepoint(pygame.mouse.get_pos()):
+            fenetre.blit(button_modify_h, (700,500))
+            pygame.display.flip()
+        elif delete_r.collidepoint(pygame.mouse.get_pos()):
+            fenetre.blit(button_delete_h, (700,550))
+            pygame.display.flip()
+        else:
+            deckBuilder_routine(fenetre, selectedDeck)
+            
                 
-            #print(listDeck)
-            pygame.display.flip()
-            #print(os.path.splitext(file)[0])
-        #Recuperation des donnees Json des fichier
-        with open("decks/decklist/deck_base.json") as json_file:
-            json_data = json.load(json_file)
-            pygame.display.flip()
-            #Affiche le tableau de valeurs
-            #print(json_data)
-def deckBuilder_routine(fenetre):
+        pygame.display.flip()
+       
+def deckBuilder_routine(fenetre, selectedDeck):
     pygame.display.set_caption("Galactica - Deck Builder")
     fond_deckBuilder = pygame.image.load("images/background.jpg").convert()
     button_modify = pygame.image.load("images/modify_no_highlight.jpg").convert()
@@ -97,6 +97,7 @@ def deckBuilder_routine(fenetre):
     button_create_h = pygame.image.load("images/create_highlight.jpg").convert()
     button_back = pygame.image.load("images/back_no_highlight.jpg").convert()
     button_back_h = pygame.image.load("images/back_highlight.jpg").convert()
+    button_deck = pygame.image.load("images/b_no_highlight.jpg").convert()
     title = pygame.image.load("images/title.png").convert()
     fenetre.blit(fond_deckBuilder, (0,0))
     fenetre.blit(title, (325,0))
@@ -104,4 +105,23 @@ def deckBuilder_routine(fenetre):
     fenetre.blit(button_modify, (700,500))
     fenetre.blit(button_delete, (700,550))
     fenetre.blit(button_back, (700,600))
+
+    #Initialisation de la liste des Decks
+    listDeck = {}
+    cpt = 0
+    # Style des noms de decks
+    white = (255, 255, 255)
+    red = (255, 0, 0)
+    myfont = pygame.font.SysFont("Arial",30)
+    # Liste des fichiers dans le dossier decklist
+    listfile = os.listdir("decks/decklist/")
+    for file in listfile:
+        listDeck = {"id": cpt,"name": os.path.splitext(file)[0] }
+        cpt += 1
+        fenetre.blit(button_deck, (40,45+(cpt*45)))
+        if cpt == selectedDeck:
+            label = myfont.render(listDeck["name"], 1, red)
+        else:
+            label = myfont.render(listDeck["name"], 1, white)
+        fenetre.blit(label, (40,30+(cpt*45)+10))
     pygame.display.flip()

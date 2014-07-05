@@ -1,1 +1,1 @@
-fullscreen_on
+fullscreen_off

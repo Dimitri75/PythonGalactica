@@ -1,7 +1,7 @@
 import pygame
 
 from pygame.locals import *
-from game_func import *
+from deckSelect import *
 
 
 #Choix du Mode:
@@ -43,10 +43,10 @@ def mode_choice(fenetre):
                 x, y = event.pos
                 #Bouton MODE 1 JOUEUR
                 if ( x in range(418,543)) and (y in range (173,202)):
-                    game_main(fenetre, 1)
+                    deckSelect_main(fenetre, 1)
                 #Bouton MODE 2 JOUEURS
                 elif ( x in range(418,543)) and (y in range (222,251)):
-                    game_main(fenetre, 0)
+                    deckSelect_main(fenetre, 0)
                 #Bouton BACK
                 elif ( x in range(700, 825)) and (y in range(600,625)):
                     continuer = 0

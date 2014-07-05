@@ -6,7 +6,7 @@ from card_loading import *
 from ia import *
 
 #Fonction principale de jeu
-def game_main(fenetre, mode):
+def game_main(fenetre, mode, deck1, deck2):
     #Mise en place de la vue de la partie
     pygame.display.set_caption("Galactica - Partie en cours")
     fond = pygame.image.load("images/background_game.jpg").convert()
@@ -26,8 +26,8 @@ def game_main(fenetre, mode):
     pygame.display.flip()
 
     #Chargement des decks de base
-    deck_name = 'deck_base'
-    deck_name_ia = 'deck_base_ia'
+    deck_name = deck1
+    deck_name_ia = deck2
     deck_player = load_deck(deck_name)
     deck_enemy = load_deck(deck_name_ia)
 
