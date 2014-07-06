@@ -1,4 +1,5 @@
 [
+{ "name":"Dimitri", "Health":10, "Attack":30, "Cost":1, "Capacity":0 }, 
 { "name":"Buran", "Health":6, "Attack":5, "Cost":6, "Capacity":0 }, 
 { "name":"Voyager", "Health":5, "Attack":4, "Cost":4, "Capacity":0 }, 
 { "name":"Settera", "Health":4, "Attack":2, "Cost":3, "Capacity":1 },
