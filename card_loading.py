@@ -30,6 +30,13 @@ def draw_card(stats, hand, deck, who):
     hand.append(temp)
     deck.remove(temp)
 
+def capacity_to_string(capacity):
+    if capacity == 0:
+        return ""
+    elif capacity == 1:
+        return "Draw a card"
+    elif capacity == 2:
+        return "Taunt"
 
     
 

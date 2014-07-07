@@ -5,5 +5,6 @@
 { "name":"Settera", "Health":4, "Attack":2, "Cost":3, "Capacity":1 },
 { "name":"Akira", "Health":1, "Attack":1, "Cost":1, "Capacity":0 }, 
 { "name":"Ajax", "Health":3, "Attack":3, "Cost":3 , "Capacity":0},
-{ "name":"Enterprise", "Health":2, "Attack":3, "Cost":2, "Capacity":0 }
+{ "name":"Enterprise", "Health":2, "Attack":3, "Cost":2, "Capacity":0 },
+{ "name":"Bellerephon", "Health":6, "Attack":2, "Cost":4, "Capacity":2 }
 ]

@@ -2,6 +2,7 @@ import pygame
 import copy
 
 from pygame.locals import *
+from card_loading import *
 
 #Methode pour savoir si une carte est jouable
 def is_card_playable(card_cost, stats, board):
@@ -42,8 +43,22 @@ def play_turn_ia(stats, board, hand_enemy):
              stats['enemy_pool'] = str(int(stats['enemy_pool']) - int(board['enemy'+str(x)]['Cost']))
              del(hand_enemy[i])
              return
-    
+            
+def call_capacity(stats, board, hand_player, deck_player, index):
+    if board['player'+str(index)]['Capacity'] == 1:
+        draw_card(stats, hand_player, deck_player, "player")
 
+def is_taunt_on_board(board):
+    for i in range(0,5):
+        if board['enemy'+str(i)] != 'empty':
+            if is_taunt_existing(board, i):
+                return i
+    return -1
+def is_taunt_existing(board, index):
+    if board['enemy'+str(index)]['Capacity'] == 2:
+        return True;
+    else:
+        return False;
 def get_empty_slot(board, target):
     place = -1
     if target == 'enemy':
