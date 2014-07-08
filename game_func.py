@@ -193,7 +193,7 @@ def game_main(fenetre, mode, deck1, deck2):
                     tempString = "          "+tempString
                 capacity = fontHover.render(tempString, 1, (255, 255, 255))
                 temp_image_card = pygame.image.load("decks/img/hover-"+str(hand_player[increment_Hover]['name'])+".png").convert()
-                fenetre.blit(temp_image_card, (470,210))
+                fenetre.blit(temp_image_card, (470,228))
                 fenetre.blit(big_card, (400,200))
                 if id_selected_card != increment_Hover:
                     id_selected_card = increment_Hover
@@ -245,7 +245,7 @@ def display_board(fenetre, board, is_attacking):
                     fenetre.blit(board_case_full, (150 +(i*150),145))
             model_card_front = pygame.image.load("images/card_model_hand.png").convert_alpha()
             temp_image = pygame.image.load("decks/img/"+str(board['enemy'+str(i)]['name'])+".png").convert()
-            fenetre.blit(temp_image, (168+(i*150),150))
+            fenetre.blit(temp_image, (164+(i*150),150))
             fenetre.blit(model_card_front, (150+(i*150),150))   
             
             name = font_name.render(str(board['enemy'+str(i)]['name']), 1, (255, 255, 255))
@@ -277,7 +277,7 @@ def display_board(fenetre, board, is_attacking):
                 fenetre.blit(board_case_full, (150 +(i*150),345))
             model_card_front = pygame.image.load("images/card_model_hand.png").convert_alpha()
             temp_image = pygame.image.load("decks/img/"+str(board['player'+str(i)]['name'])+".png").convert()
-            fenetre.blit(temp_image, (168+(i*150),350))
+            fenetre.blit(temp_image, (164+(i*150),350))
             fenetre.blit(model_card_front, (150+(i*150),350))  
             
             name = font_name.render(str(board['player'+str(i)]['name']), 1, (255, 255, 255))
@@ -408,7 +408,7 @@ def print_hands(fenetre, hand_player, hand_enemy):
         im = model_card_front.get_rect()
         im.x, im.y = (i*68),610
         list_image_maps.append(im)
-        fenetre.blit(temp_image, (18+(i*68),610))
+        fenetre.blit(temp_image, (13+(i*68),616))
         fenetre.blit(model_card_front, (0+(i*68),610))
         
         
