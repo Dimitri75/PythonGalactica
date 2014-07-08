@@ -40,5 +40,30 @@ def capacity_to_string(capacity):
     elif capacity == 3:
         return "1 damage to board"
 
-    
+def is_rarityMax_in_deck(deck, name):
+    maxRare = 5
+    maxEpic = 2
+    maxLegendary = 1
+    i = 0
+    for card in deck:
+        if card['name'] == name:
+            i += 1
+    if len(deck) > 0:
+        if (card['Rarity'] == 1) and (i == maxRare):
+            return True
+        elif (card['Rarity'] == 2) and (i == maxEpic):
+            return True
+        elif (card['Rarity'] == 3) and (i == maxLegendary):
+            return True
+    return False 
 
+def rarity_to_string(rarity):
+    if rarity == 0:
+        return "com"
+    elif rarity ==1:
+        return "rare"
+    elif rarity == 2:
+        return "epic"
+    elif rarity == 3:
+        return "legendary"
+    return ""

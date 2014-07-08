@@ -30,17 +30,17 @@ def deckModify(fenetre, deck_name):
                             with open ("decks/decklist/"+deck_name+".json", "w") as f:
                                 json.dump(deck, f)
                                 f.close()
-                            reload(fenetre, deck_name)
+                            deck = reload(fenetre, deck_name)
 
                     for i in range(0,len(data)):
                         if (x in range(int(W-(W/5)-104),int(W-(W/5)+104))) and (y in range (40+(i*23-10),40+(i*23+10))):
-                            if(len(deck)<30):
+                            if(len(deck)<30) and not(is_rarityMax_in_deck(deck, data[i]["name"])):
                                 deck.append(data[i])
                                 with open ("decks/decklist/"+deck_name+".json", "w") as f:
                                     json.dump(deck, f)
                                     f.close()
                                 print("\nLa carte "+data[i]["name"]+" vient d'etre ajoutee au deck.")
-                                reload(fenetre, deck_name)
+                                deck = reload(fenetre, deck_name)
                                 
 
 def reload(fenetre, deck_name):
@@ -75,9 +75,11 @@ def reload(fenetre, deck_name):
 
     data = load_card_list()
 
-    for i in range(0,len(data)):
+    for i in range(len(data)):
         fond_carte = pygame.image.load("images/bg_cardList.png").convert_alpha()
+        fond_rarity = pygame.image.load("images/bg_"+rarity_to_string(data[i]["Rarity"])+".png").convert()
         fenetre.blit(fond_carte, ((W-(W/5)-105), (40+i*23)-11))
+        fenetre.blit(fond_rarity, (W-(W/5)-105+(208-7), (40+i*23)-11))
 
         #COST
         text = [myfont.render(str(data[i]["Cost"]), True, [0,0,0])]
@@ -126,9 +128,11 @@ def print_deck(fenetre, deck_name):
     deck = load_deck(deck_name)
 
     
-    for i in range(0,len(deck)):
+    for i in range(len(deck)):
         fond_carte = pygame.image.load("images/bg_cardList.png").convert_alpha()
+        fond_rarity = pygame.image.load("images/bg_"+rarity_to_string(deck[i]["Rarity"])+".png").convert()
         fenetre.blit(fond_carte, (W/5-105, (40+i*23)-11))
+        fenetre.blit(fond_rarity, (W/5-105+(208-7), (40+i*23)-11))
 
         #COST
         text = [myfont.render(str(deck[i]["Cost"]), True, [0,0,0])]

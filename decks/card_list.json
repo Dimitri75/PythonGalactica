@@ -1,11 +1,11 @@
 [
-{ "name":"Dimitri", "Health":10, "Attack":30, "Cost":1, "Capacity":0 }, 
-{ "name":"Buran", "Health":6, "Attack":5, "Cost":6, "Capacity":0 }, 
-{ "name":"Voyager", "Health":5, "Attack":4, "Cost":4, "Capacity":0 }, 
-{ "name":"Settera", "Health":4, "Attack":2, "Cost":3, "Capacity":1 },
-{ "name":"Akira", "Health":1, "Attack":1, "Cost":1, "Capacity":0 }, 
-{ "name":"Ajax", "Health":3, "Attack":3, "Cost":3 , "Capacity":0},
-{ "name":"Enterprise", "Health":2, "Attack":3, "Cost":2, "Capacity":0 },
-{ "name":"Bellerephon", "Health":6, "Attack":2, "Cost":4, "Capacity":2 },
-{ "name":"Andromeda", "Health":1, "Attack":1, "Cost":4, "Capacity":3 }
+{ "name":"Dimitri", "Health":10, "Attack":30, "Cost":1, "Capacity":0, "Rarity":3 }, 
+{ "name":"Buran", "Health":6, "Attack":5, "Cost":6, "Capacity":0, "Rarity":0 },
+{ "name":"Voyager", "Health":5, "Attack":4, "Cost":4, "Capacity":0, "Rarity":0 },
+{ "name":"Settera", "Health":4, "Attack":2, "Cost":3, "Capacity":1, "Rarity": 1 },
+{ "name":"Akira", "Health":1, "Attack":1, "Cost":1, "Capacity":0, "Rarity":0 },
+{ "name":"Ajax", "Health":3, "Attack":3, "Cost":3 , "Capacity":0, "Rarity":0 }, 
+{ "name":"Enterprise", "Health":2, "Attack":3, "Cost":2, "Capacity":0, "Rarity":0 },
+{ "name":"Bellerephon", "Health":6, "Attack":2, "Cost":4, "Capacity":2, "Rarity":2 }, 
+{ "name":"Andromeda", "Health":1, "Attack":1, "Cost":4, "Capacity":3, "Rarity":2 }
 ]
