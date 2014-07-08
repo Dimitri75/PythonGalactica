@@ -37,6 +37,8 @@ def capacity_to_string(capacity):
         return "Draw a card"
     elif capacity == 2:
         return "Taunt"
+    elif capacity == 3:
+        return "1 damage to board"
 
     
 

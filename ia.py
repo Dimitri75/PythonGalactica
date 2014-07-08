@@ -47,7 +47,24 @@ def play_turn_ia(stats, board, hand_enemy):
 def call_capacity(stats, board, hand_player, deck_player, index):
     if board['player'+str(index)]['Capacity'] == 1:
         draw_card(stats, hand_player, deck_player, "player")
-
+    if board['player'+str(index)]['Capacity'] == 3:
+        for i in range(0,5):
+            if board['enemy'+str(i)] != 'empty':
+                board['enemy'+str(i)]['Health'] -= 1
+                board['enemy'+str(i)]['Wounded'] = True
+            if board['player'+str(i)] != 'empty':
+                board['player'+str(i)]['Health'] -= 1
+                board['player'+str(i)]['Wounded'] = True
+        for i in range(0,5):
+            if board['enemy'+str(i)] != 'empty':
+                if board['enemy'+str(i)]['Health'] <= 0:
+                    board['cimetery_enemy'].append(board['enemy'+str(i)])
+                    board['enemy'+str(i)] = 'empty'
+            if board['player'+str(i)] != 'empty':
+                if board['player'+str(i)]['Health'] <= 0:
+                    board['cimetery_player'].append(board['player'+str(i)])
+                    board['player'+str(i)] = 'empty'
+            
 def is_taunt_on_board(board):
     for i in range(0,5):
         if board['enemy'+str(i)] != 'empty':
@@ -101,7 +118,7 @@ def attack_combat(board, index_p, index_e):
         board['cimetery_enemy'].append(board['enemy'+str(index_e)])
         board['enemy'+str(index_e)] = 'empty'
     if int(board['player'+str(index_p)]['Health']) <= 0:
-        board['cimetery_player'].append(board['enemy'+str(index_e)])
+        board['cimetery_player'].append(board['player'+str(index_p)])
         board['player'+str(index_p)] = 'empty'
 
 def attack_enemy_hero(stats, board, index_p):
