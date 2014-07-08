@@ -3,7 +3,7 @@ from pygame.locals import *
 
 def credits_print(fenetre):
     pygame.display.set_caption("Galactica - Credits")
-    fond_credits = pygame.image.load("images/background.jpg").convert()
+    fond_credits = pygame.image.load("images/bg_credit.png").convert()
     title = pygame.image.load("images/title.png").convert()
     button_back = pygame.image.load("images/back_no_highlight.jpg").convert()
     button_back_h = pygame.image.load("images/back_highlight.jpg").convert()
@@ -31,7 +31,7 @@ def credits_print(fenetre):
 
 
 def credits_routine(fenetre):
-    fond_credits = pygame.image.load("images/background.jpg").convert()
+    fond_credits = pygame.image.load("images/bg_credit.png").convert()
     title = pygame.image.load("images/title.png").convert()
     button_back = pygame.image.load("images/back_no_highlight.jpg").convert()
     button_back_h = pygame.image.load("images/back_highlight.jpg").convert()
