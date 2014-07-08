@@ -138,7 +138,14 @@ def game_main(fenetre, mode, deck1, deck2):
                         for i in range(0,5):
                             if board['enemy'+str(i)] != 'empty':
                                 if (x in range(150+(i*150),150+(i*150)+68)) and (y in range(150,150+94)):
-                                    if is_taunt_on_board(board) == i:
+                                    if is_taunt_on_board(board) == -1:
+                                        card_to_hand = False
+                                        board['player'+str(card_from_board)] = copy.deepcopy(tempCard)
+                                        board['player'+str(card_from_board)]['can_attack'] = 0
+                                        attack_combat(board, card_from_board, i)
+                                        card_from_board = -1
+                                        break
+                                    elif is_taunt_on_board(board) == i:
                                         card_to_hand = False
                                         board['player'+str(card_from_board)] = copy.deepcopy(tempCard)
                                         board['player'+str(card_from_board)]['can_attack'] = 0
