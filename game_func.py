@@ -201,7 +201,7 @@ def game_main(fenetre, mode, deck1, deck2):
                     if is_card_playable(hand_player[increment_Hover]['Cost'],stats,board):
                         fenetre.blit(card_playable, (0+(increment_Hover*68),610))
                     else:
-                        fenetre.blit(card_subri,(0+(increment_Hover*68),610))
+                        fenetre.blit(card_subri,(0+(increment_Hover*68),606))
                 if len(str(hand_player[increment_Hover]['name']))>6:
                     fenetre.blit(name, (490,420))
                 else:
