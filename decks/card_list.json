@@ -3,7 +3,7 @@
 { "name":"Dark Vador", "Health":8, "Attack":3, "Cost":5, "Capacity":3, "Rarity":3 },
 { "name":"50cent", "Health":10, "Attack":3, "Cost":5, "Capacity":2, "Rarity":3 },
 { "name":"Mr.Sananes", "Health":5, "Attack":5, "Cost":4 , "Capacity":1, "Rarity":3 },
-{ "name":"Dimitri", "Health":1, "Attack":10, "Cost":3, "Capacity":0, "Rarity":3 }, 
+{ "name":"Mr.Raynal", "Health":1, "Attack":10, "Cost":3, "Capacity":0, "Rarity":3 }, 
 { "name":"Josephine", "Health":9, "Attack":1, "Cost":2, "Capacity":2, "Rarity":3 },
 { "name":"Equidia", "Health":6, "Attack":4, "Cost":4, "Capacity":0, "Rarity": 2 },
 { "name":"Rachid", "Health":3, "Attack":4, "Cost":3, "Capacity":0, "Rarity":2 },
